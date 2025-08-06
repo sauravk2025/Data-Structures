@@ -1,0 +1,93 @@
+#include<stdio.h>
+
+int stack[100],top=-1;
+
+void push(char x)
+{
+    top++;
+    stack[top]=x;
+}
+
+char pop()
+{
+    char x;
+    x=stack[top];
+    top--;
+    
+    return x;
+}
+
+int precedence(char x)
+{
+    
+    if(x=='('||x==')')
+    {
+        return 3;
+    }
+    else if(x=='['||x==']')
+    {
+        return 2;
+    }
+    else if(x=='}'||x=='{')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+void main()
+{
+    char a[100],b[100],x;
+    int i,k=0;
+    printf("Enter the expression:");
+    gets(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        if(a[i]=='('||a[i]=='['||a[i]=='{')
+        {
+            push(a[i]);
+             b[k]=a[i];
+            k++;
+            
+        }
+        
+        else if(a[i]==')'||a[i]==']'||a[i]=='}')
+        {
+            b[k]=a[i];
+            k++;
+            x=pop();
+            if(precedence(x)==precedence(a[i]))
+            {
+               // b[k]=x;
+                //k++;
+            }
+            else
+            {
+                while(precedence(x)!=precedence(stack[top]))
+                {
+                    x=pop();
+                    b[k]=x;
+                    k++;
+                    
+                }
+            }
+        }
+    }
+    if(top==-1)
+    {
+        printf("balanced\n");
+    }
+    else
+    {
+        printf("not\n");
+    }
+    printf("order:");
+    for(i=0;i<k;i++)
+    {
+        printf("%c\t",b[i]);
+    }
+}

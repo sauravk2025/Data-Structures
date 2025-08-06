@@ -1,0 +1,213 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int data;
+  struct node*next;
+ }*START=NULL,*ptr;
+
+void insertbeg(int x)
+{
+ struct node*newnode;
+ newnode=(struct node*)malloc(sizeof(struct node));
+ newnode->data=x;
+ newnode->next=NULL;
+ if(START==NULL)
+ {
+  START=newnode;
+ }
+ else
+ {
+  newnode->next=START;
+  START=newnode;
+ }
+ }
+ 
+
+void insertend(int x)
+{
+ struct node*newnode;
+ newnode=(struct node*)malloc(sizeof(struct node));
+ newnode->data=x;
+ newnode->next=NULL;
+ if(START==NULL)
+ {
+  START=newnode;
+ }
+ else
+ {
+   ptr=START;
+   while(ptr->next!=NULL)
+   {
+    ptr=ptr->next;
+   }
+   ptr->next=newnode;
+  }
+ }
+
+
+void deletebeg()
+{
+ ptr=START;
+ if(START==NULL)
+ {
+   printf("Linked list empty");
+ }
+
+ else
+ {
+  ptr=START;
+  START=ptr->next;
+  free(ptr);
+ }
+}
+
+
+void deleteend()
+{
+ struct node*preptr;
+  if(START==NULL)
+ {
+   printf("Linked list empty");
+ }
+ else if(START->next==NULL)
+ {
+  free(START);
+  START=NULL;
+  ptr=NULL;
+ }
+ else
+ {
+ ptr=START;
+ preptr=ptr;
+ while(ptr->next!=NULL)
+ {
+  preptr=ptr;
+  ptr=ptr->next;
+ }
+ preptr->next=NULL;
+ free(ptr);
+ }
+}
+
+
+
+void display()
+{
+ ptr=START;
+ if(START==NULL)
+ {
+  printf("Linked list is empty");
+ }
+ else
+ {
+  printf("Linked List :");
+ while(ptr!=NULL)
+ 
+ {
+ printf("%d\t",ptr->data);
+ ptr=ptr->next;
+ }
+}
+}
+
+
+
+void insertany(int x,int o)
+{
+ struct node*newnode;
+ newnode=(struct node*)malloc(sizeof(struct node));
+ newnode->data=x;
+ newnode->next=NULL;
+ if(START==NULL)
+ {
+  START=newnode;
+ }
+ else
+ {
+  ptr=START;
+  while(ptr->data!=o)
+  {
+   ptr=ptr->next;
+  }
+  newnode->next=ptr->next;
+  ptr->next=newnode;
+  ptr->data=o;
+ }
+}
+
+
+void deleteany(int x)
+{
+ struct node*preptr;
+  if(START==NULL)
+ {
+   printf("Linked list empty");
+ }
+ else
+ {
+   ptr=START;
+   preptr=ptr;
+   while(ptr->data!=x)
+   {
+    preptr=ptr;
+    ptr=ptr->next;
+   }
+   preptr->next=ptr->next;
+   free(ptr);
+   }
+}
+
+
+void main()
+{
+ int a,h,n,p,e;
+ do{
+ printf("Menu\n1.Insert from beginning\n2.Insert from end\n3.Delete from beginning\n4.Delete from end\n5.Display\n6.Insert at any point\n7.Delete at any point\n");
+ scanf("%d",&a);
+ if(a==1)
+ {
+  printf("Enter the element:");
+  scanf("%d",&n);
+  insertbeg(n);
+ }
+ else if(a==2)
+ {
+  printf("Enter the element:");
+  scanf("%d",&n);
+  insertend(n);
+ }
+ else if(a==3)
+ {
+  deletebeg();
+ }
+ else if(a==4)
+ {
+  deleteend();
+ }
+ else if(a==5)
+ {
+  display();
+ }
+ else if(a==6)
+ {
+  printf("Enter the element:");
+  scanf("%d",&n);
+  printf("\nEnter the value after which you need to insert:");
+  scanf("%d",&p);
+  insertany(n,p);
+ 
+ }
+ else if(a==7)
+ {
+  printf("Enter the element to be deleted:");
+  scanf("%d",&e);
+  deleteany(e);
+ 
+ }
+ 
+ printf("\nDo you wish to continue?\n1.Yes\t2.No");
+ scanf("%d",&h);
+ }while(h==1);
+}

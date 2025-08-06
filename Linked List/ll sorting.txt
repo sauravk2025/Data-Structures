@@ -1,0 +1,199 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    char nm[100];
+    char dep[100];
+    int age;
+    struct node*next;
+    
+}*start=NULL,*newnode,*vlist[100];
+
+int n;
+
+
+void swap(int a, int b)
+{
+    struct node*ptr1,*ptr2,*ptr3,*temp,*ptr;
+    ptr1=start;
+    ptr2=start;
+    ptr3=start;
+    while(ptr1!=NULL)
+    {
+        if(ptr1->age==a)
+       {
+           break;
+        }
+        ptr3=ptr1;
+        ptr1=ptr1->next;
+    }
+     while(ptr2!=NULL)
+     {
+        if(ptr2->age==b)
+        {
+            break;
+        }
+        ptr2=ptr2->next;
+    }
+   // printf("ptr1:%d\n",ptr1->next);
+   // printf("ptr2:%d\n",ptr2->next);
+    
+    if(ptr1==start)
+    {
+        start=ptr2;
+        ptr1->next=ptr2->next;
+        ptr2->next=ptr1;
+   // printf("temp:%d\n",temp);
+   // printf("ptr1 swapp:%d\n",ptr1->);
+    //printf("ptr2 swapp:%d\n",ptr2->next);
+    }
+    else{
+    ptr3->next=ptr2;
+    ptr1->next=ptr2->next;
+    ptr2->next=ptr1;
+   // printf("else temp:%d\n",temp);
+     // printf("else ptr1 swapp:%d\n",ptr1);
+    //printf("else ptr2 swapp:%d",ptr2->age);
+    }
+    
+ }
+
+
+
+
+int get(int j)
+{
+    struct node*ptr;
+    int k,i;
+    ptr=start;
+    
+    for(i=0;i<n;i++)
+    {
+       if(i==j)
+       {
+           k=ptr->age;
+           return k;
+       }
+       else
+       {
+           ptr=ptr->next;
+       }
+    }
+}
+
+
+
+
+void sort()
+{
+int i,j,a,b;
+struct node*ptr;
+
+for(i=0;i<n-1;i++)
+{
+    for(j=0;j<n-i-1;j++)
+    {
+        a=get(j);
+        b=get(j+1);
+        printf("a:%d\n",a);
+         printf("b:%d\n",b);
+        
+        if(b<a)
+        {
+            swap(a,b);
+        }
+    }
+}
+
+printf("\nafter swappin:\n");
+ptr=start;
+while(ptr!=NULL)
+    {
+        printf("\n");
+        printf("%s->",ptr->nm);
+        printf("%s->",ptr->dep);
+        printf("%d",ptr->age);
+        ptr=ptr->next;
+        printf("\n");
+    }
+
+
+}
+
+
+void display(struct node*s)
+{
+    struct node*ptr;
+    ptr=s;
+    printf("Details:");
+    while(ptr!=NULL)
+    {
+        printf("\n");
+        printf("%s->",ptr->nm);
+        printf("%s->",ptr->dep);
+        printf("%d",ptr->age);
+        ptr=ptr->next;
+        printf("\n");
+    }
+}
+
+
+
+
+
+
+void create(struct node*s)
+{
+   int i=0;
+    struct node*ptr;
+    printf("Enter the name:");
+    scanf("%s",&newnode->nm);
+    printf("Enter the dep:");
+    scanf("%s",&newnode->dep);
+    printf("Enter the age:");
+    scanf("%d",&newnode->age);
+    ptr=s;
+    
+    for(i=1;i<n;i++)
+    {
+    
+    newnode=(struct node*)malloc(sizeof(struct node));
+    
+    printf("Enter the name:");
+    scanf("%s",&newnode->nm);
+    printf("Enter the dep:");
+    scanf("%s",&newnode->dep);
+    printf("Enter the age:");
+    scanf("%d",&newnode->age);
+    newnode->next=NULL;
+    
+    ptr->next=newnode;
+    ptr=ptr->next;
+            
+        
+    }
+    
+    display(start);
+    
+}
+
+
+
+
+
+
+
+void main()
+{
+    printf("Enter the number of people:");
+    scanf("%d",&n);
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    start=newnode;
+    create(start);
+    
+    sort();
+   
+    
+}

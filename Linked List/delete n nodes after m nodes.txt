@@ -1,0 +1,124 @@
+
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    int c;
+    struct node*next;
+    
+}*start=NULL,*newnode,*ptr5,*pre5;
+
+void create(int item)
+{
+    struct node*ptr;
+    int i;
+    if(start==NULL)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    newnode->c=i;
+    start=newnode;
+    ptr=start;
+    }
+    else
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    i=i+1;
+    newnode->c=i;
+    ptr->next=newnode;
+    ptr=ptr->next;
+    }
+}
+
+void display(struct node *s)
+{
+    int i=1;
+    struct node*ptr;
+    ptr=s;
+    while(ptr!=NULL)
+    {
+        printf("%d->",ptr->data);
+        ptr->c=i;
+        i=i+1;
+        ptr=ptr->next;
+    }
+}
+
+
+void delete(int x)
+{
+    struct node*ptr1,*pre,*ptr;
+    pre=start;
+    ptr1=start;
+    while(ptr1!=NULL)
+    {
+        if(ptr1->data==x)
+        {
+          pre->next=ptr1->next;
+          ptr=ptr1;
+          free(ptr);
+          ptr1=pre;
+        }
+        pre=ptr1;
+        ptr1=ptr1->next;
+        
+    }
+    display(start);
+}
+
+void del(int m,int v)
+{
+    int i;
+    struct node*ptr,*pre;
+    ptr=start;
+    pre=ptr;
+    while(ptr->data==m)
+    {
+        pre=ptr;
+        ptr=ptr->next;
+        
+    }
+    pre=ptr;
+    ptr=ptr->next;
+    for(i=0;i<v;i++)
+    {
+      pre->next=ptr->next;
+      free(ptr);
+      ptr=pre;
+      ptr=ptr->next;
+      
+    }
+    display(start);
+}
+
+
+
+
+
+void main()
+{
+    int n,item,i,x,m,v;
+    printf("Enter the number of elemst:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("Enter the element:");
+        scanf("%d",&item);
+        create(item);
+    }
+    display(start);
+   // printf("\nEnter x:");
+    //scanf("%d",&x);
+    //delete(x);
+    printf("\nEnter the elements after which you need to delete:");
+    scanf("%d",&m);
+    printf("\nEnter the number of elemets you want to delete:");
+    scanf("%d",&v);
+    del(m,v);
+}

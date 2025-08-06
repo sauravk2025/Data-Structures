@@ -1,0 +1,72 @@
+#include<stdio.h>
+int n;
+
+
+void Quick(int a[],int left,int right)
+{
+    int i=0,j=0,pivot,temp=0,k;
+    if(left<right)
+    {
+    i=left;
+    j=right+1;
+    pivot=a[left];
+    }
+    while(i<j)
+    {
+        do{
+        
+        i++;
+            
+        }while(a[i]<pivot && i<=right);
+        
+        do{
+            
+          j--;
+        }while(a[j]>pivot && j>=left);
+        
+        if(i<j)
+        {
+            temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+        }
+        else
+        {
+            temp=a[left];
+            a[left]=a[j];
+            a[j]=temp;
+            Quick(a,left,j-1);
+            Quick(a,j+1,right);
+        }
+        printf("\nWhile sorting: ");
+        for(k=0;k<n;k++)
+        {
+            printf("%d\t",a[k]);
+        }
+      
+    }
+    
+}
+
+
+
+
+void main()
+{
+    int i,a[100],left=0,right;
+    printf("Enter the number of elements:");
+    scanf("%d",&n);
+    right=n-1;
+    printf("Enter the elements:");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    printf("The elements are:");
+     for(i=0;i<n;i++)
+    {
+        printf("%d\t",a[i]);
+    }
+   Quick(a,left,right);
+     
+}

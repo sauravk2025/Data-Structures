@@ -1,0 +1,176 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int co;
+    int ex;
+    struct node*next;
+}*ptr,*newnode,*start1,*start2,*start3,*start4,*ptr1,*ptr2,*ptr3,*ptr4;
+
+void insert(int n,struct node*start)
+{
+    int i;
+    printf("Enter the coefficient:");
+    scanf("%d",&newnode->co);
+    printf("Enter the expoenent:");
+    scanf("%d",&newnode->ex);
+    newnode->next=NULL;
+    ptr=start;
+    for(i=1;i<n;i++)
+    {
+     newnode=(struct node*)malloc(sizeof(struct node));
+    printf("Enter the coefficient:");
+    scanf("%d",&newnode->co);
+    printf("Enter the expoenent:");
+    scanf("%d",&newnode->ex);
+    newnode->next=NULL;
+    ptr->next=newnode;
+    ptr=ptr->next;
+    }
+    //display(start);
+    
+}
+
+void add(struct node*s1,struct node*s2,struct node *s3)
+{
+    //newnode=(struct node*)malloc(sizeof(struct node));
+    s3->next=NULL;
+    ptr3=s3;
+    ptr1=s1;
+    ptr2=s2;
+    
+    while(ptr1!=NULL && ptr2!=NULL)
+    { 
+         if(ptr1->ex==ptr2->ex)
+         {
+             ptr3->co=ptr1->co+ptr2->co;
+             ptr3->ex=ptr1->ex;
+             ptr1=ptr1->next;
+             ptr2=ptr2->next;
+             
+         }
+         else if(ptr1->ex>ptr2->ex)
+         {
+             ptr3->co=ptr1->co;
+             ptr3->ex=ptr1->ex;
+             ptr1=ptr1->next;
+         }
+         else if(ptr2->ex>ptr1->ex)
+         {
+             ptr3->co=ptr2->co;
+             ptr3->ex=ptr2->ex;
+             ptr2=ptr2->next;
+         }
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    ptr3->next=newnode;
+    ptr3=ptr3->next;
+        
+    }
+    
+    while(ptr1!=NULL)
+    {
+             ptr3->co=ptr1->co;
+             ptr3->ex=ptr1->ex;
+             ptr1=ptr1->next;
+         
+        newnode=(struct node*)malloc(sizeof(struct node));
+        newnode->next=NULL;
+       ptr3->next=newnode;
+        ptr3=ptr3->next;
+    
+    }
+    
+        
+    while(ptr2!=NULL)
+    {
+        
+             ptr3->co=ptr2->co;
+             ptr3->ex=ptr2->ex;
+             ptr2=ptr2->next;
+        newnode=(struct node*)malloc(sizeof(struct node));
+        newnode->next=NULL;
+        ptr3->next=newnode;
+        ptr3=ptr3->next;
+    
+    }
+    
+    
+}
+
+void display(struct node*start)
+{
+    ptr3=start;
+    while(ptr3->next!=NULL)
+    {
+        printf("%dx^%d+",ptr3->co,ptr3->ex);
+        ptr3=ptr3->next;
+    }
+    printf("%dx^%d",ptr3->co,ptr3->ex);
+}
+
+
+void multiply(struct node*s1,struct node*s2,struct node*s4)
+{
+    s4->next=NULL;
+    ptr4=s4;
+    ptr1=s1;
+    ptr2=s2;
+    while(ptr1!=NULL)
+    {
+        ptr2=s2;
+        while(ptr2!=NULL)
+        {
+            ptr4->co=ptr1->co*ptr2->co;
+            ptr4->ex=ptr1->ex+ptr2->ex;
+            ptr2=ptr2->next;
+            newnode=(struct node*)malloc(sizeof(struct node));
+            newnode->next=NULL;
+            ptr4->next=newnode;
+            ptr4=ptr4->next;
+        }
+        ptr1=ptr1->next;
+    }
+   
+    
+}
+
+
+
+void main()
+{
+    int n1,n2,q;
+    printf("Enter the number of terms of polynomial 1:");
+    scanf("%d",&n1);
+    printf("Enter the terms\n");
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start1=newnode;
+    insert(n1,start1);
+    display(start1);
+    
+     printf("\nEnter the number of terms of polynomial 2:");
+    scanf("%d",&n2);
+    printf("Enter the terms\n");
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start2=newnode;
+    insert(n2,start2);
+    display(start2);
+    
+    printf("\nEnter the choice ?\n1.Addition 2.Multiplication");
+    scanf("%d",&q);
+    if(q==1){
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start3=newnode;
+    add(start1,start2,start3);
+    printf("\nThe sum is:");
+    display(start3);
+    }
+    //newnode=(struct node*)malloc(sizeof(struct node));
+    if(q==2){
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start4=newnode;
+    multiply(start1,start2,start4);
+    display(start4);
+    }
+    
+}

@@ -1,0 +1,57 @@
+#include<stdio.h>
+
+int apple(int a[],int k,int n,int pos)
+{
+    int small,m=0,i;
+    small=a[k];
+    pos=k;
+    for(m=k+1;m<n;m++)
+    {
+        if(small>a[m])
+        {
+            small=a[m];
+            pos=m;
+            printf("\nPOS :%d",pos);
+        }
+       
+       
+    }
+
+    return(pos);
+    
+}
+
+
+void main()
+{
+    int i,j,k,a[100],n,temp=0,pos=0,p;
+    printf("Enter the number of elements:");
+    scanf("%d",&n);
+    printf("Enter the elements:");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    printf("The elements are:");
+     for(i=0;i<n;i++)
+    {
+        printf("%d\t",a[i]);
+    }
+    for(k=0;k<n-1;k++)
+    {
+        p=apple(a,k,n,pos);
+        temp=a[k];
+        a[k]=a[p];
+        a[p]=temp;
+         printf("\nAfter sorting :");
+        for(i=0;i<n;i++)
+        {
+            printf("%d\t",a[i]);
+        }
+    }
+    printf("\nThe sorted array is:");
+    for(i=0;i<n;i++)
+    {
+        printf("%d\t",a[i]);
+    }
+}

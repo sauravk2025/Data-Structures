@@ -1,0 +1,170 @@
+#include<stdio.h>
+struct node
+{
+    int co;
+    int ex;
+}p1[100],p2[100],p3[100],p4[100],p5[100];
+
+int n1,n2,n3,n4,n5;
+
+void Addition()
+{
+    int i=0,j=0,k=0;
+    while(i<n1 && j<n2)
+    {
+        if(p1[i].ex==p2[j].ex)
+        {
+            p3[k].co=p1[i].co+p2[j].co;
+            p3[k].ex=p1[i].ex;
+            k++;
+            j++;
+            i++;
+        }
+        else if(p1[i].ex>p2[j].ex)
+        {
+            p3[k].co=p1[i].co;
+            p3[k].ex=p1[i].ex;
+            k++;
+            i++;
+        }
+        else if(p1[i].ex<p2[j].ex)
+        {
+            p3[k].co=p2[j].co;
+            p3[k].ex=p2[j].ex;
+            k++;
+            j++;
+        }
+    }
+    
+    while(i<n1)
+    {
+        p3[k].co=p1[i].co;
+        p3[k].ex=p1[i].ex;
+        k++;
+        i++;
+    }
+    
+    while(j<n2)
+    {
+        p3[k].co=p2[j].co;
+        p3[k].ex=p2[j].ex;
+        k++;
+        j++;
+    }
+    
+    n3=k;
+    
+}
+
+void displayadd()
+{
+    int i;
+    printf("\nAddition :");
+    for(i=0;i<n3-1;i++)
+    {
+        printf("%dx%d +",p3[i].co,p3[i].ex);
+    }
+    printf("%dx%d ",p3[i].co,p3[i].ex);
+    
+}
+
+void Multiplication()
+{
+    int i,j,k=0;
+    printf("\nMultiplication:");
+   for(i=0;i<n1;i++)
+   {
+     for(j=0;j<n2;j++)
+     {
+        p4[k].co=p1[i].co*p2[j].co;
+        p4[k].ex=p1[i].ex+p2[j].ex;
+        k++;
+     }
+   }
+   n4=k;
+}
+
+void displaymulti()
+{
+    int i,j,k=0;
+    
+    
+    for(i=0;i<n4;i++)
+    {
+        for(j=n4-1;j>=i+1;j--)
+        {
+          if(p4[i].ex==p4[j].ex)
+          {
+              p4[i].co=p4[i].co+p4[j].co;
+              p5[i].ex=p4[i].ex;
+              p4[j].co=0;
+              p4[j].ex=0;
+              
+           }
+        }
+    }
+
+   for(i=0;i<n4;i++)
+   {
+       if(p4[i].co!=0)
+       {
+           p5[k].co=p4[i].co;
+           p5[k].ex=p4[i].ex;
+           k++;
+           
+        }
+   }
+   n5=k;
+    
+    
+   for(i=0;i<n5-1;i++)
+   {
+       printf("%dx%d+",p5[i].co,p5[i].ex);
+   }
+    printf("%dx%d",p5[i].co,p5[i].ex);
+}
+
+
+
+void main()
+{
+    int i,c,h;
+    printf("Enter the number of terms in polynomial 1:");
+    scanf("%d",&n1);
+    printf("Enter the number of terms in polynomial 2:");
+    scanf("%d",&n2);
+    
+    printf("Enter the elements in polynomial 1:\n");
+    for(i=0;i<n1;i++)
+    {
+    printf("Enter the coefficient %d:",i+1);
+    scanf("%d",&p1[i].co);
+    printf("Enter the degree  %d:",i+1);
+    scanf("%d",&p1[i].ex);
+    }
+    
+    printf("Enter the elements in polynomial 2:\n");
+    for(i=0;i<n2;i++)
+    {
+    printf("Enter the coefficient %d:",i+1);
+    scanf("%d",&p2[i].co);
+    printf("Enter the degree %d:",i+1);
+    scanf("%d",&p2[i].ex);
+    }
+    do{
+        printf("Menu\n1.Addition\t2.Multiplication");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            Addition();
+            displayadd();
+        }
+        if(c==2)
+        {
+            Multiplication();
+            displaymulti();
+        }
+        printf("\nDo you wish to continue?\n1.Yes\t2.No");
+        scanf("%d",&h);
+    }while(h==1);
+}

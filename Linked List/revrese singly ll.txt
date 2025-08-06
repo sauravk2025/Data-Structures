@@ -1,0 +1,112 @@
+
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    int c;
+    struct node*next;
+    
+}*start=NULL,*newnode;
+
+void create(int item)
+{
+    struct node*ptr;
+    int i;
+    if(start==NULL)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    newnode->c=i;
+    start=newnode;
+    ptr=start;
+    }
+    else
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    i=i+1;
+    newnode->c=i;
+    ptr->next=newnode;
+    ptr=ptr->next;
+    }
+}
+
+void display(struct node *s)
+{
+    struct node*ptr;
+    ptr=s;
+    while(ptr!=NULL)
+    {
+        printf("%d->",ptr->data);
+        ptr=ptr->next;
+    }
+}
+
+void middle(int n)
+{
+    int j=n-3;
+    struct node*ptr;
+    ptr=start;
+    while(ptr!=NULL)
+    {
+        if(ptr->c==j)
+        {
+           printf("\n%d->",ptr->data); 
+        }
+        ptr=ptr->next;
+    }
+}
+
+void reverse()
+{
+    struct node*ptr,*pre,*post;
+    pre=start;
+    ptr=pre->next;
+    post=ptr->next;
+     while(post!=NULL)
+        {
+        ptr->next=pre;
+         printf("\n4.pre->data:%d",pre->data);
+        pre=ptr;
+         printf("\n5.ptr->data:%d",ptr->data);
+        ptr=post;
+         printf("\n6.post->data:%d",post->data);
+        post=post->next;
+        }
+        
+        ptr->next=pre;
+        pre=ptr;
+        start->next=NULL;
+    printf("\n7.pre->data:%d",pre->data);
+    printf("\n");
+    while(pre!=NULL)
+    {
+        printf("%d->",pre->data);
+        pre=pre->next;
+    }
+}
+
+void main()
+{
+    int n,item,i;
+    printf("Enter the number of elemst:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("Enter the element:");
+        scanf("%d",&item);
+        create(item);
+    }
+    display(start);
+    middle(n);
+    reverse();
+
+    
+    
+}
+

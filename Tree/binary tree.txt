@@ -1,0 +1,131 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*left;
+    struct node*right;
+}*root=NULL,*newnode;
+
+struct node*getnewnode(int d)
+{
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->left=NULL;
+    newnode->right=NULL;
+    newnode->data=d;
+    
+    return newnode;
+}
+
+struct node *insertl(struct node*r,int d)
+{
+     if(r==NULL)
+    {
+        r=getnewnode(d);
+    }
+    else 
+    {
+        r->left=insertl(r->left,d);
+    }
+    return r;
+}
+
+struct node *insertr(struct node*r,int d)
+{
+     if(r==NULL)
+    {
+        r=getnewnode(d);
+    }
+    else 
+    {
+        r->right=insertr(r->right,d);
+    }
+    return r;
+}
+
+void preorder(struct node*r)
+{
+    if(r!=NULL)
+    {
+        printf("%d->",r->data);
+        preorder(r->left);
+        preorder(r->right);
+    }
+}
+
+void postorder(struct node*r)
+{
+    if(r!=NULL)
+    {
+        postorder(r->left);
+        postorder(r->right);
+        printf("%d->",r->data);
+        
+    }
+}
+
+void inorder(struct node*r)
+{
+    if(r!=NULL)
+    {
+        inorder(r->left);
+        printf("%d->",r->data);
+        inorder(r->right);
+    }
+}
+
+
+
+
+
+void main() 
+{
+    int c,h,data,g;
+    struct node*rs;
+    root=(struct node*)malloc(sizeof(struct node));
+    root->left=NULL;
+    root->right=NULL;
+    printf("Enter the root node:");
+    scanf("%d",&root->data);
+    do{
+        printf("Menu\n1.Insert left\t2.insert right\t3.Display\t4.Search\t");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            printf("Enter the data:");
+            scanf("%d",&data);
+            insertl(root,data);
+        }
+        
+        if(c==2)
+        {
+            printf("Enter :");
+            scanf("%d",&data);
+            insertr(root,data);
+        }
+         if(c==3)
+        {
+            printf("1.Inorder\t2.Postorder\t3.Preorder");
+            scanf("%d",&g);
+            if(g==1)
+            {
+                inorder(root);
+            }
+            
+            if(g==2)
+            {
+                postorder(root);
+            }
+            
+            if(g==3)
+            {
+                preorder(root);
+            }
+            
+        }
+         printf("\nDo you wish to continue?\t1.YES\t2.NO");
+        scanf("%d",&h);
+    }while(h==1);
+}    
+        

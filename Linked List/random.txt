@@ -1,0 +1,201 @@
+
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    int c;
+    struct node*next;
+    
+}*start=NULL,*newnode;
+
+void create(int item)
+{
+    struct node*ptr;
+    int i;
+    if(start==NULL)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    newnode->c=i;
+    start=newnode;
+    ptr=start;
+    }
+    else
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    i=i+1;
+    newnode->c=i;
+    ptr->next=newnode;
+    ptr=ptr->next;
+    }
+}
+
+void display(struct node *s)
+{
+    int i=1;
+    struct node*ptr;
+    ptr=s;
+    while(ptr!=NULL)
+    {
+        printf("%d->",ptr->data);
+        ptr->c=i;
+        i=i+1;
+        ptr=ptr->next;
+    }
+}
+
+/*void middle(int n)
+{
+    int j=n/2;
+    int item;
+    struct node*ptr;
+    ptr=start;
+    printf("\nEnter data:");
+    scanf("%d",&item);
+     newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    
+    
+    while(ptr!=NULL)
+    {
+        if(ptr->c==j)
+        {
+           printf("\n%d->\n",ptr->data); 
+           newnode->next=ptr->next;
+           ptr->next=newnode;
+        }
+        ptr=ptr->next;
+    }
+    display(start);
+}
+*/
+/*struct node* delete(int x)
+{
+    printf("hi");
+    struct node*ptr1=start;
+    struct node*preptr1=start;
+    while(ptr1->data==x)
+    {
+        preptr1=ptr1;
+        ptr1=ptr1->next;
+    }
+    preptr1->next=ptr1->next;
+    free(ptr1);
+    return preptr1;
+
+}
+*/
+void partition()
+{
+    int x;
+    struct node*ptr,*preptr,*ptr1;
+    ptr=start;
+    ptr1=start;
+    preptr=ptr;
+    printf("\nEnter x:");
+    scanf("%d",&x);
+     printf("hi");
+    while(ptr!=NULL)
+    {
+         printf("hi");
+     if(ptr->data==x)
+     {
+         ptr1=ptr;
+         preptr->next=ptr->next;
+         free(ptr1);
+     }
+     preptr=ptr;
+     ptr=ptr->next;
+    }
+    
+  ptr=start;
+  while(ptr!=NULL)
+  {
+      printf("%d->",ptr->data);
+  }
+    
+}
+
+/*void removee()
+{
+    int n;
+    struct node*ptr,*preptr;
+    preptr=start;
+    ptr=start;
+    
+    printf("\nEnter n value:");
+    scanf("%d",&n);
+    while(ptr!=NULL)
+    {
+        if(ptr->c==n)
+        {
+           preptr->next=ptr->next;
+           free(ptr);
+           break;
+        }
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    display(start);
+    
+    
+    
+}
+void reverse()
+{
+    struct node*ptr,*pre,*post;
+    pre=start;
+    ptr=pre->next;
+    post=ptr->next;
+     while(post!=NULL)
+        {
+        ptr->next=pre;
+         printf("\n4.pre->data:%d",pre->data);
+        pre=ptr;
+         printf("\n5.ptr->data:%d",ptr->data);
+        ptr=post;
+         printf("\n6.post->data:%d",post->data);
+        post=post->next;
+        }
+        
+        ptr->next=pre;
+        pre=ptr;
+        start->next=NULL;
+    printf("\n7.pre->data:%d",pre->data);
+    printf("\n");
+    while(pre!=NULL)
+    {
+        printf("%d->",pre->data);
+        pre=pre->next;
+    }
+}*/
+
+void main()
+{
+    int n,item,i;
+    printf("Enter the number of elemst:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        printf("Enter the element:");
+        scanf("%d",&item);
+        create(item);
+    }
+    display(start);
+   // middle(n);
+   // removee();
+    partition();
+   // reverse();
+    
+
+    
+    
+}
+

@@ -1,0 +1,190 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*next;
+}*start=NULL,*ptr,*last=NULL;
+
+
+void insertbeg(int x)
+{
+    struct node*newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=x;
+    if(start==NULL)
+    {
+        start=newnode;
+        newnode->next=start;
+        last=start;
+        
+    }
+    else
+    {
+         newnode->next=start;
+         last->next=newnode;
+          start=newnode;
+         
+    }
+}
+    
+void insertend(int x)
+{
+    struct node*newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=x;
+    
+        if(start==NULL)
+        {
+            
+            start=newnode;
+            newnode->next=start;
+             last=start;
+        }
+        else
+        {
+           last->next=newnode;
+           last=last->next;
+           newnode->next=start;
+           
+        }
+    
+}
+
+void deletebeg()
+{ 
+    struct node*preptr;
+    if(start==NULL)
+    {
+        printf("LL empty");
+        
+    }
+    else
+    {
+        ptr=start;
+        start=ptr->next;
+        free(ptr);
+        last->next=start;
+    }
+    
+}
+
+void deleteend()
+{
+    struct node*preptr;
+   if(start==NULL)
+   {
+       printf("LL empty");
+       
+   }
+   else
+   {
+       ptr=start;
+       preptr=ptr;
+       while(ptr->next!=start)
+       {
+           preptr=ptr;
+           ptr=ptr->next;
+       }
+       free(ptr);
+       preptr->next=start;
+	 last=preptr;   
+}
+}
+
+void display()
+{
+    ptr=start;
+    while(ptr->next!=start)
+    {
+        printf("%d\t",ptr->data);
+        ptr=ptr->next;
+    }
+    printf("%d",ptr->data);
+   
+}
+
+void insertany(int x,int o)
+{
+    struct node*newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=x;
+    ptr=start;
+    while(ptr->data!=o)
+    {
+        ptr=ptr->next;
+    }
+    newnode->next=ptr->next;
+    ptr->next=newnode;
+}
+
+void deleteany(int o)
+{
+    struct node*preptr;
+    ptr=start;
+    preptr=ptr;
+    while(ptr->data!=o)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    preptr->next=ptr->next;
+    free(ptr);
+}
+
+
+
+
+void main()
+{
+    int n,o,c,h;
+    do{
+    printf("Menu\n1.Insert from front\t2.Insert from back\t3.Inser from any\t4.Delete from front\t5.Delete from back\t6.Delete from any\t7.Display");
+    scanf("%d",&c);
+    
+    if(c==1)
+    {
+        printf("Enter the element:");
+        scanf("%d",&n);
+        insertbeg(n);
+    }
+    if(c==2)
+    {
+        printf("Enter the element:");
+        scanf("%d",&n);
+        insertend(n);
+    }
+    if(c==4)
+    {
+        deletebeg();
+    }
+    if(c==5)
+    {
+        deleteend();
+    }
+    if(c==7)
+    {
+        display();
+    }
+    if(c==3)
+    {
+        printf("Enter the number to be inserted:");
+        scanf("%d",&n);
+        printf("Enter the element after which you need to insert:");
+        scanf("%d",&o);
+        insertany(n,o);
+    }
+    if(c==6)
+    {
+        printf("Enter the element which you need to delete:");
+        scanf("%d",&o);
+        deleteany(o);
+    }
+    printf("\nDo you wish to continue?\t1.Yes\t2.No");
+    scanf("%d",&h);
+    }while(h==1);
+}

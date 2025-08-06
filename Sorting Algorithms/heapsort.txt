@@ -1,0 +1,123 @@
+#include <stdio.h>
+int heap[20],a[20],n,k;
+
+
+
+void display(int arr[],int n)
+{int i;
+ for(i=1;i<=n;i++)
+ {
+  printf("%d  ",arr[i]);
+ }
+ printf("\n");}
+ 
+ 
+ 
+void swap(int a, int b)
+{
+ int temp;
+ temp=heap[a];
+ heap[a]=heap[b];
+ heap[b]=temp;
+}
+
+
+void insert(int j,int val)
+{
+ int par,pos=j;
+ heap[j]=val;
+ 
+ while(pos>1)
+ {
+    par=pos/2;
+  
+  if(heap[pos]<=heap[par])
+  { 
+    break;
+  }
+  else
+  {
+    swap(pos,par);
+    pos=par;
+  }
+ }
+ 
+}
+
+
+
+int delete()
+{
+ int val,last,ptr=1,left=2,right=3;
+ val=heap[1];
+ last=heap[n];
+ n--;
+ heap[ptr]=last;
+ 
+ while(left<=n)
+ {
+   if(heap[ptr]>=heap[left]&&heap[ptr]>=heap[right])
+  {
+    break;
+  }
+   else if(heap[right]<=heap[left])
+  {
+   swap(ptr,left);
+    ptr=left;
+  }
+  else
+  {
+   swap(ptr,right);
+   ptr=right;
+  }
+  
+  left=2*ptr;
+  right=left+1;
+ }
+ return val;
+}
+
+
+
+
+void heapsort()
+{
+ while(n>=1)
+ {
+     printf("\nn:%d\n",n);
+  a[n]=delete();
+  printf("a[n]:%d\n",a[n]);
+  display(heap,n);
+ }
+}
+
+
+
+void main()
+{
+ int i,val;
+ printf("Enter the number of elements in the array: ");
+ scanf("%d",&n);
+ k=n;
+ 
+ for(i=1;i<=n;i++)
+ {
+  printf("Enter element %d: ",i);
+  scanf("%d",&a[i]);
+  insert(i,a[i]);
+ }
+ 
+ 
+ printf("The array is :\n");
+ display(a,n);
+ 
+ 
+ printf("\nMax heap in array representation is:\n");
+ display(heap,n);
+ 
+ printf("Performing heapsort on the max heap:\n");
+ heapsort();
+ 
+ printf("Array after heapsort:\n");
+ display(a,k);
+}

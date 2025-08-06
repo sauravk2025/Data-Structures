@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*next;
+}*ptr,*newnode,*ptr3,*start2,*start1,*start3,*ptr1,*ptr2,*preptr1,*preptr2;
+
+void insert(int n,struct node*start)
+{
+    int i;
+    printf("Enter the elements:");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    ptr=start;
+    for(i=1;i<n;i++)
+    {
+     newnode=(struct node*)malloc(sizeof(struct node));
+    printf("Enter the elements:");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    ptr->next=newnode;
+    ptr=ptr->next;
+}
+}
+
+void display(struct node*start)
+{
+    ptr3=start;
+    while(ptr3->next!=NULL)
+    {
+        printf("%d->",ptr3->data);
+        ptr3=ptr3->next;
+    }
+    printf("%d",ptr3->data);
+}
+
+void add(struct node*s2,struct node*s1)
+{
+    ptr2=s2;
+    ptr1=s1;
+    
+    while(ptr2!=NULL && ptr1!=NULL)
+    {
+        preptr1=ptr1;
+        ptr1=ptr1->next;
+        preptr2=ptr2;
+        preptr1->next=preptr2;
+        //preptr2=p2;
+        ptr2=ptr2->next;
+        preptr2->next=ptr1;
+    }
+    
+   /* while(ptr2!=NULL)
+    {
+        preptr1->next=ptr2;
+        preptr1=preptr1->next;
+        ptr2=ptr2->next;
+        
+    }*/
+}
+
+void main()
+{
+    int n1,n2,q;
+    printf("Enter the number of terms in LL1:");
+    scanf("%d",&n1);
+    printf("Enter the terms:\n");
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start1=newnode;
+    insert(n1,start1);
+    display(start1);
+    
+     printf("\nEnter the number of terms of LL 2:");
+    scanf("%d",&n2);
+    printf("Enter the terms:\n");
+    newnode=(struct node*)malloc(sizeof(struct node));
+    start2=newnode;
+    insert(n2,start2);
+    display(start2);
+    printf("\n");
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    start3=newnode;
+    add(start2,start1);
+    display(start1);
+}  
+    

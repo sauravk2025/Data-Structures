@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int v;
+    struct node*next;
+}*vlist[100],*newnode;
+
+int n;
+
+void create(struct node*ptr,int a[],int j)
+{
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->v=a[j];
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=newnode;
+}
+
+
+void  main()
+{
+    int i,a[100],c,b[i][j];
+    printf("Enter the number of vrtices:");
+    scanf("%d",&n);
+    printf("enter :");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+        newnode=(struct node*)malloc(sizeof(struct node));
+        newnode->next=NULL;
+        newnode->v=a[i];
+        vlist[i]=newnode;
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("is there a conn btw %d and %d:\n1.y\t2.n",a[i],a[j]);
+            scanf("%d",&c);
+            if(c==1)
+            {
+                b[i][j]=1;
+                ptr=vlist[i];
+                create(ptr,a,j);
+            }
+            else
+            {
+                b[i][j]=0;
+            }
+        }
+    }
+    
+}

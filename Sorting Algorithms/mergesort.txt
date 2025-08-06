@@ -1,0 +1,86 @@
+#include<stdio.h>
+
+
+void merge(int a[],int p,int q,int r)
+{
+    int n1,n2,L[100],R[100],i,k,j;
+    n1=q-p+1;
+    n2=r-q;
+    k=p;
+    for(i=0;i<n1;i++)
+    {
+        L[i]=a[k];
+        k++;
+    }
+    for(j=0;j<n2;j++)
+    {
+        R[j]=a[k];
+        k++;
+    }
+    i=0;
+    j=0;
+    k=p;
+    while(i<n1 && j<n2)
+    {
+        if(L[i]<=R[j])
+        {
+            a[k]=L[i];
+            k++;
+            i++;
+        }
+        else
+        {
+            a[k]=R[j];
+            k++;
+            j++;
+        }
+    }
+    
+    
+    while(i<n1)
+    {
+         a[k]=L[i];
+           k++;
+           i++;
+     }
+     
+     while(j<n2)
+     {
+         a[k]=R[j];
+            k++;
+            j++;
+         
+     }
+}
+
+void mergesort(int a[],int p,int r)
+{
+    int q;
+    if(p<r)
+    {
+       q=(p+r)/2;
+       mergesort(a,p,q);
+       mergesort(a,q+1,r);
+       merge(a,p,q,r);
+    }
+}
+
+
+void main()
+{
+    int a[100],i,n,p=0,r;
+    printf("Enter number of elemensts:");
+    scanf("%d",&n);
+    r=n-1;
+    printf("ENTER:");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    mergesort(a,p,r);
+    for(i=0;i<n;i++)
+    {
+        printf("%d",a[i]);
+    }
+
+}

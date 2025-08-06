@@ -1,0 +1,170 @@
+
+
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*next;
+    struct node*prev;
+    
+}*start=NULL,*newnode,*last;
+
+void insr(int item)
+{
+    struct node*ptr;
+    if(start==NULL)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->prev=NULL;
+    newnode->data=item;
+ 
+    start=newnode;
+    last=start;
+    last->next=start;
+    //ptr=start;
+    }
+    else
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    newnode->prev=last;
+    newnode->next=start;
+    last->next=newnode;
+    last=last->next;
+    
+}
+}
+
+
+void insf(int item)
+{
+    struct node*ptr;
+    
+    if(start==NULL)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->prev=NULL;
+    newnode->data=item;
+ 
+    start=newnode;
+    last=start;
+    last->next=start;
+    
+    }
+    else
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->next=NULL;
+    newnode->data=item;
+    newnode->prev=NULL;
+    newnode->next=start;
+    last->next=newnode;
+    start->prev=newnode;
+    start=newnode;
+    
+        
+    }
+    
+    
+    
+}
+
+void dltr()
+{
+    struct node*ptr;
+    ptr=start;
+    while(ptr->next!=start)
+    {
+        ptr=ptr->next;
+    }
+    last=ptr->prev;
+    last->next=start;
+    free(ptr);
+    
+}
+
+
+void dltf()
+{
+    struct node*ptr;
+    ptr=start;
+    start=start->next;
+    start->prev=NULL;
+    last->next=start;
+    free(ptr);
+    
+    
+
+
+}
+
+
+void display(struct node *s)
+{
+    struct node*ptr;
+    ptr=s;
+    while(ptr->next!=s)
+    {
+        printf("%d->",ptr->data);
+        ptr=ptr->next;
+    }
+    printf("%d",ptr->data);
+}
+
+
+
+
+
+
+void main()
+{
+    int n,item,i,x,m,v;
+    printf("Enter the number of elemst:");
+    scanf("%d",&n);
+    do{
+        printf("\nMenu\n1.insert rear\t2.delete rear\t3.insert front\t4.delete front\t5.display");
+        scanf("%d",&m);
+        
+        
+        if(m==1)
+        {
+        printf("Enter the element:");
+        scanf("%d",&item);
+        insr(item);
+        }
+        
+        if(m==2)
+        {
+            dltr();
+        }
+        
+        if(m==3)
+        {
+        printf("Enter the element:");
+        scanf("%d",&item);
+        insf(item);
+        }
+        
+        if(m==4)
+        {
+            dltf();
+        }
+        
+        if(m==5)
+        {
+             display(start);
+        }
+        
+        printf("\ndo you wish to con:\t1.y\t2.no");
+        scanf("%d",&v);
+    }
+    while(v==1);
+   
+   
+   
+}

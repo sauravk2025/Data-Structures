@@ -1,0 +1,374 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int vertex;
+    struct node*left;
+    struct node*right;
+}*root=NULL,*newnode;
+
+
+
+struct node*getnewnode(int data2)
+{
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->vertex=data2;
+    newnode->left=NULL;
+    newnode->right=NULL;
+    
+    return newnode;
+}
+
+
+
+struct node*insert(struct node*root1,int data1)
+{
+    if(root1==NULL)
+    {
+        root1=getnewnode(data1);
+    }
+    else if(data1<root1->vertex)
+    {
+        root1->left=insert(root1->left,data1);
+    }
+    else if(data1>root1->vertex)
+    {
+      root1->right=insert(root1->right,data1);   
+    }
+    return root1;
+}
+
+
+
+void inorder(struct node*root2)
+{ 
+    if(root2!=NULL)
+    {
+    inorder(root2->left);
+    printf("%d->",root2->vertex);
+    inorder(root2->right);
+    }
+}
+
+
+
+void postorder(struct node*root3)
+{
+    if(root3!=NULL)
+    {
+        postorder(root3->left);
+        postorder(root3->right);
+        printf("%d->",root3->vertex);
+    }
+}
+
+
+
+void preorder(struct node*root4)
+{
+    if(root4!=NULL)
+    {
+        printf("%d->",root4->vertex);
+        preorder(root4->left);
+        preorder(root4->right);
+    }
+}
+
+
+struct node*findmin(struct node*root6)
+{
+    struct node*current=root6;
+    while(current->left!=NULL)
+    {
+        current=current->left;
+    }
+    return current;
+}
+
+
+
+struct node*delete(struct node*root5,int data2)
+{
+    if(root5==NULL)
+    {
+        return root5;
+    }
+    
+    else if(data2<root5->vertex)
+    {
+        root5->left=delete(root5->left,data2);
+    }
+    else if(data2>root5->vertex)
+    {
+        root5->right=delete(root5->right,data2);
+    }
+    else 
+    {
+       
+         if(root5->right==NULL)
+        {
+           struct node*temp=root5->left;
+           free(root5);
+           return temp;
+        }
+        else if(root5->left==NULL)
+        {
+            struct node*temp=root5->right;
+            free(root5);
+            return temp;
+        }
+        
+        struct node*temp=findmin(root5->right);
+        root5->vertex=temp->vertex;
+        root5->right=delete(root5->right,temp->vertex);
+    }
+    return root5;
+}
+
+
+
+
+struct node* search(struct node*root7,int data3)
+{
+    if(root7==NULL || data3==root7->vertex)
+    {
+        return root7;
+    }
+    if(data3>root7->vertex)
+    {
+        return search(root7->right,data3);
+        
+    }
+    if(data3<root7->vertex)
+    {
+        return search(root7->left,data3);
+    }
+}
+
+
+
+
+int height(struct node*root8)
+{
+    int l,r;
+    if(root8==NULL)
+    {
+        return -1;
+    }
+    l=height(root8->left);
+    r=height(root8->right);
+    if(l>r)
+    {
+        return l+1;
+    }
+    else
+    {
+        return r+1;
+    }
+}
+
+
+
+int nodenumb(struct node*root9)
+{  
+    if(root9==NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return nodenumb(root9->left)+nodenumb(root9->right)+1;
+    }
+}
+
+
+
+int intnode(struct node*root1)
+{
+    if(root1==NULL)
+    {
+        return 0;
+    }
+   else if(root1->left==NULL && root1->right==NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return ((intnode(root1->left)+intnode(root1->right))+1);
+    }
+}
+
+
+
+int external(struct node*root2)
+{
+    if(root2==NULL)
+    {
+        return 0;
+    }
+    else if(root2->left==NULL && root2->right==NULL)
+    {
+        return 1;
+    }
+    else
+    {
+     return external(root2->left)+external(root2->right);   
+    }
+}
+
+
+
+int smallest(struct node*root3)
+{
+    if(root3==NULL || root3->left==NULL)
+    {
+        return root3->vertex;
+        
+    }
+    else
+    {
+        return smallest(root->left);
+    }
+}
+
+
+
+int biggest(struct node*root4)
+{
+    if(root4==NULL || root4->right==NULL)
+    {
+        return root4->vertex;
+    }
+    else
+    {
+        return biggest(root4->right);
+    }
+}
+
+
+void mirrorimage(struct node*root5)
+{
+    struct node*temp;
+    if(root5!=NULL)
+    {
+        mirrorimage(root5->left);
+        mirrorimage(root5->right);
+        temp=root5->left;
+        root5->left=root5->right;
+        root5->right=temp;
+    }
+}
+
+
+void main() 
+{
+    int c,h,data,g;
+    struct node*rs;
+    root=(struct node*)malloc(sizeof(struct node));
+    root->left=NULL;
+    root->right=NULL;
+    printf("Enter the root node:");
+    scanf("%d",&root->vertex);
+    do{
+        printf("Menu\n1.Insert\t2.Delete\t3.Display\t4.Search\t5.Height\t6.Nodes number\t7.Internal nodes\n8.External nodes\t9.Smallest\t10.Biggest\t11.Mirror image");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            printf("Enter the data:");
+            scanf("%d",&data);
+            insert(root,data);
+        }
+        
+        if(c==2)
+        {
+            printf("Enter the element to delete:");
+            scanf("%d",&data);
+            delete(root,data);
+        }
+        
+        
+        if(c==3)
+        {
+            printf("1.Inorder\t2.Postorder\t3.Preorder");
+            scanf("%d",&g);
+            if(g==1)
+            {
+                inorder(root);
+            }
+            
+            if(g==2)
+            {
+                postorder(root);
+            }
+            
+            if(g==3)
+            {
+                preorder(root);
+            }
+            
+        }
+        
+        if(c==4)
+        {
+            printf("Enter the element:");
+            scanf("%d",&data);
+            rs=search(root,data);
+            if(rs==NULL)
+            {
+                printf("Element not found");
+                
+            }
+            else
+            {
+                printf("Element found");
+            }
+        }
+        
+        if(c==5)
+        {
+           int hei=height(root);
+           printf("Height is:%d",hei);
+        }
+        
+        if(c==6)
+        {
+           int numb=nodenumb(root);
+           printf("Number of nodes is:%d",numb);
+        }
+        
+        if(c==7)
+        {
+           int in=intnode(root);
+           printf("Number of Internal nodes is:%d",in);
+        }
+        
+        if(c==8)
+        {
+            int ext=external(root);
+            printf("Number of External nodes is:%d",ext);
+        }
+        
+        if(c==9)
+        {
+            int sm=smallest(root);
+            printf("Smallest element is:%d",sm);
+        }
+        
+        if(c==10)
+        {
+            int big=biggest(root);
+            printf("Biggest element is:%d",big);
+        }
+        
+        if(c==11)
+        {
+            mirrorimage(root);
+            inorder(root);
+        }
+        
+        printf("\nDo you wish to continue?\t1.YES\t2.NO");
+        scanf("%d",&h);
+    }while(h==1);
+}
